@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Globalization;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace Task4
 {
@@ -111,7 +112,10 @@ namespace Task4
                 var json = JsonConvert.SerializeObject(PersonArray, jsonsettings);
                 Console.WriteLine(json);
 
-                var itemsfromjson = JsonConvert.DeserializeObject<IPerson[]>(json, jsonsettings);
+                File.WriteAllText(@"Person.json", json);
+                string content = File.ReadAllText(@"Person.json");
+
+                var itemsfromjson = JsonConvert.DeserializeObject<IPerson[]>(content, jsonsettings);
                 foreach (var Actuator in itemsfromjson)
                 {
                     Actuator.Print();
